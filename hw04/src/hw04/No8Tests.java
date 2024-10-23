@@ -134,7 +134,7 @@ public class No8Tests {
 			checkTreeStructure(node.right);
 		}
 	}
-	
+
 	private void checkTreeKeysInOrder(BTNode<String, String> node,
 			String expKeys) {
 		/*

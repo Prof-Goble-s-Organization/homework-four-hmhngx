@@ -34,7 +34,7 @@ public class No5Tests {
 				String rkey = keys[rind];
 				t.remove(rkey);
 			}
-			
+
 			//System.out.println(t.size());
 
 			KeyStringVisitor<String, Integer> v = new KeyStringVisitor<String, Integer>();

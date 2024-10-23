@@ -62,7 +62,7 @@ public class No6Tests {
 		String[] rVals = { "1", "2", "3" };
 		CS232LinkedBinaryTree<String, String> rTree = new CS232LinkedBinaryTree<String, String>(
 				rKeys, rVals);
-		
+
 		String[] lKeys = { "D", "E", "F" };
 		String[] lVals = { "4", "5", "6" };
 		CS232LinkedBinaryTree<String, String> lTree = new CS232LinkedBinaryTree<String, String>(
