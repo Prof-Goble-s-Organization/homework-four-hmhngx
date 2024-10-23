@@ -131,8 +131,26 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 */
 	public CS232LinkedBinaryTree(CS232LinkedBinaryTree<K, V> leftSubTree,
 			K key, V value, CS232LinkedBinaryTree<K, V> rightSubTree) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+
+		if(key == null) {
+			throw new IllegalArgumentException("Key cannot be null.");
+		}
+
+		root = new BTNode<>(key, value);
+
+		size = 1;
+
+		if(leftSubTree != null && leftSubTree.root != null) {
+			root.left = leftSubTree.root;
+			leftSubTree.root.parent = root;
+			size += leftSubTree.size;
+		}
+
+		if(rightSubTree != null && rightSubTree.root != null) {
+			root.right = rightSubTree.root;
+			rightSubTree.root.parent = root;
+			size += rightSubTree.size;
+		}
 	}
 
 	/**
@@ -146,8 +164,26 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 * {@inheritDoc}
 	 */
 	public boolean contains(K key) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		return subtreeContains(root, key);
+	}
+
+	private boolean subtreeContains(BTNode<K, V> subTreeRoot, K key) {
+
+		if(subTreeRoot == null) {
+			return false;
+		}
+
+		if(subTreeRoot.key.equals(key)) {
+			return true;
+		}
+
+		boolean isLeft = subtreeContains(subTreeRoot.left, key);
+
+		if(isLeft) {
+			return true;
+		}
+
+		return subtreeContains(subTreeRoot.right, key);
 	}
 
 	/**
@@ -195,9 +231,40 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 *            the value.
 	 */
 	public void add(K key, V value) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
-		
+
+		if(root == null) {
+			root = new BTNode<>(key, value);
+			size = 1;
+			return;
+		}
+
+		BTNode<K, V> newNode = new BTNode<>(key, value);
+		Queue<BTNode<K, V>> queue = new LinkedList<>();
+		queue.add(root);
+
+		while(!queue.isEmpty()) {
+			BTNode<K, V> current = queue.remove();
+
+			if(current.left != null) {
+				queue.add(current.left);
+			} else {
+				current.left = newNode;
+				newNode.parent = current;
+				size++;
+				return;
+			}
+
+			if(current.right != null) {
+				queue.add(current.right);
+			} else {
+				current.right = newNode;
+				newNode.parent = current;
+				size++;
+				return;
+			}
+		}
+
+
 		/*
 		 * HINT: Use a queue to perform a level order traversal of the tree until a
 		 * node with a missing child is found. At each node (starting with the
@@ -296,8 +363,16 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 * {@inheritDoc}
 	 */
 	public void visitInOrder(CS232Visitor<K, V> visitor) {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		subTreeVisitInOrder(root, visitor);
+	}
+
+	private void subTreeVisitInOrder(BTNode<K, V> subTreeRoot,
+			CS232Visitor<K, V> visitor) {
+		if(subTreeRoot != null) {
+			subTreeVisitInOrder(subTreeRoot.left, visitor);
+			visitor.visit(subTreeRoot.key, subTreeRoot.value);
+			subTreeVisitInOrder(subTreeRoot.right, visitor);
+		}
 	}
 
 	/**
@@ -354,8 +429,20 @@ public class CS232LinkedBinaryTree<K, V> implements CS232BinaryTree<K, V> {
 	 * @return
 	 */
 	public int countLeafNodes() {
-		// Intentionally not implemented - see homework assignment.
-		throw new UnsupportedOperationException("Not yet implemented");
+		return subTreeCountLeafNodes(root);
+	}
+
+	private int subTreeCountLeafNodes(BTNode<K, V> subTreeRoot) {
+
+		if(subTreeRoot == null) {
+			return 0;
+		}
+
+		if(subTreeRoot.left == null && subTreeRoot.right == null) {
+			return 1;
+		}
+
+		return subTreeCountLeafNodes(subTreeRoot.left) + subTreeCountLeafNodes(subTreeRoot.right);
 	}
 
 	/*
