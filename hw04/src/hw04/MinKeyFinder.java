@@ -1,7 +1,5 @@
 package hw04;
 
-import java.util.ArrayList;
-
 /**
  * Find the key associated with the minimum value in a tree.
  */

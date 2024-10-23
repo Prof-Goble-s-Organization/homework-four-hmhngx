@@ -11,7 +11,7 @@ import org.junit.Test;
 public class No9Tests {
 
 	private static Random rnd = new Random();
-	
+
 	@Test
 	public void testCountLeavesInEmptyTree() {
 		CS232LinkedBinaryTree<String, String> t = new CS232LinkedBinaryTree<String, String>();
@@ -19,7 +19,7 @@ public class No9Tests {
 		int leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in empty tree", 0, leaves);
 	}
-	
+
 	@Test
 	public void testCountLeavesInOneNodeTree() {
 		CS232LinkedBinaryTree<String, String> t = new CS232LinkedBinaryTree<String, String>(
@@ -39,7 +39,7 @@ public class No9Tests {
 		int leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in small full tree", 2, leaves);
 	}
-	
+
 	@Test
 	public void testCountLeavesInFullLargerTree() {
 		String[] keys = { "A", "B", "C", "D", "E", "F", "G" };
@@ -50,7 +50,7 @@ public class No9Tests {
 		int leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in larger full tree", 4, leaves);
 	}
-	
+
 	@Test
 	public void testCountLeavesInLargerNonFullTree() {
 		String[] keys = { "A", "B", "C", "D", "E", "F", "G" };
@@ -61,16 +61,16 @@ public class No9Tests {
 		t.remove("D");
 		int leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in larger non-full tree", 3, leaves);
-		
+
 		t.remove("G");
 		leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in larger full tree", 2, leaves);
-		
+
 		t.remove("E");
 		leaves = t.countLeafNodes();
 		assertEquals("Incorrect count in larger full tree", 2, leaves);
 	}
-	
+
 	@Test
 	public void testGetNodesInRandomTree() {
 
@@ -97,11 +97,11 @@ public class No9Tests {
 
 			int realCount = testHelper(t.root);
 			int stuCount = t.countLeafNodes();
-			
+
 			assertEquals("Incorrect leaf count on a random tree", realCount, stuCount);
 		}
 	}
-	
+
 	private int testHelper(BTNode<String,Integer> subTreeRoot) {
 		if (subTreeRoot == null) {
 			return 0;
